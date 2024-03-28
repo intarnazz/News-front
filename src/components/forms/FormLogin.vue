@@ -1,22 +1,19 @@
 <script setup>
-import { UserReg } from '@/api/api.js'
+import { UserLogin } from '@/api/api.js'
 import { ref } from 'vue'
 
-const name = ref('')
 const email = ref('')
 const password = ref('')
+const emit = defineEmits(['changeToken'])
 
-function Register() {
-  UserReg(name.value, email.value, password.value)
+async function Register() {
+  const res = await UserLogin(email.value, password.value)
+  emit('changeToken', res.token)
 }
 </script>
 
 <template>
   <form @submit.prevent="Register" class="popup__form form box-y">
-    <div class="box-x">
-      <label for="text">Имя:</label
-      ><input v-model="name" id="name" name="name" class="form__input" type="text" />
-    </div>
     <div class="box-x">
       <label for="email">Email:</label
       ><input v-model="email" id="email" name="email" class="form__input" type="email" />
@@ -31,7 +28,7 @@ function Register() {
         type="password"
       />
     </div>
-    <input type="submit" value="Регистрация" class="button" />
+    <input type="submit" value="Войти" class="button" />
   </form>
 </template>
 

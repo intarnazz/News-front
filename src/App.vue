@@ -1,9 +1,23 @@
 <script setup>
 import MainHeader from '@/layout/header/MainHeader.vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { watchEffect } from 'vue'
 
 const route = useRoute()
+const token = ref('')
+
+function init() {
+  token.value = localStorage.getItem('token')
+}
+
+onMounted(() => {
+  init()
+})
+
+function changeToken(value) {
+  localStorage.setItem('token', value)
+  token.value = value
+}
 
 watchEffect(() => {
   document.title = route.meta.title || 'Default Title'
@@ -16,7 +30,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <MainHeader />
+  <MainHeader :token="token" @changeToken="changeToken" />
   <RouterView />
 </template>
 

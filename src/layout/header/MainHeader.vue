@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import LayoutWrapper from '@/layout/LayoutWrapper.vue'
+import FormRegister from '@/components/forms/FormRegister.vue'
 import { ref } from 'vue'
 
 const popupIsOpen = ref(true)
@@ -14,8 +15,9 @@ const popupIsOpen = ref(true)
         <button class="button">Войти</button>
         <button class="button">Регистрация</button>
       </div>
-
-      <div v-if="popupIsOpen" class="popup"></div>
+      <div v-if="popupIsOpen" class="popup">
+        <FormRegister />
+      </div>
     </LayoutWrapper>
   </header>
 </template>
@@ -27,7 +29,10 @@ const popupIsOpen = ref(true)
   left: 0
   width: 100%
   height: 100dvh
-  background-color: #00000011
+  background-color: rgba(0, 0, 0, .8)
+  display: flex
+  align-items: center
+  justify-content: center
 .header
   background-color: #18181b
   padding: 1em 0
